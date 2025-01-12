@@ -15,7 +15,7 @@ public class ShippingServiceImpl implements ShippingService {
 
     @Override
     public double shipment(Order order) {
-        if (Objects.isNull(order)) {
+        if (Objects.isNull(order) || order.getBasic() <= 0) {
             return 0;
         }
 

@@ -54,4 +54,23 @@ class ShippingServiceImplTest {
         assertEquals(FAIXA_3, result);
     }
 
+    @Test
+    void testShipmentNull() {
+        Double result = assertDoesNotThrow(() -> shippingServiceImpl.shipment(null));
+        assertNotNull(result);
+        assertEquals(FAIXA_3, result);
+    }
+
+    @Test
+    void testShipmentBasicZero() {
+        Order order = new Order();
+        order.setCode(2282);
+        order.setBasic(0.00);
+        order.setDiscount(0.0);
+
+        Double result = assertDoesNotThrow(() -> shippingServiceImpl.shipment(order));
+        assertNotNull(result);
+        assertEquals(FAIXA_3, result);
+    }
+
 }
