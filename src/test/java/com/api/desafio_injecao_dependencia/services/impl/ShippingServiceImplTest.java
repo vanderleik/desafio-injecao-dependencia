@@ -1,6 +1,7 @@
 package com.api.desafio_injecao_dependencia.services.impl;
 
 import com.api.desafio_injecao_dependencia.entities.Order;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,13 +19,17 @@ class ShippingServiceImplTest {
     @InjectMocks
     private ShippingServiceImpl shippingServiceImpl;
 
-    @Test
-    void testShipmentFaixa1() {
-        Order order = new Order();
+    private Order order;
+    @BeforeEach
+    void setUp() {
+        order = new Order();
         order.setCode(1009);
         order.setBasic(95.90);
         order.setDiscount(0.0);
+    }
 
+    @Test
+    void testShipmentFaixa1() {
         Double result = assertDoesNotThrow(() -> shippingServiceImpl.shipment(order));
         assertNotNull(result);
         assertEquals(FAIXA_1, result);
@@ -32,10 +37,7 @@ class ShippingServiceImplTest {
 
     @Test
     void testShipmentFaixa2() {
-        Order order = new Order();
-        order.setCode(1034);
         order.setBasic(150.00);
-        order.setDiscount(0.20);
 
         Double result = assertDoesNotThrow(() -> shippingServiceImpl.shipment(order));
         assertNotNull(result);
@@ -44,10 +46,7 @@ class ShippingServiceImplTest {
 
     @Test
     void testShipmentFaixa3() {
-        Order order = new Order();
-        order.setCode(2282);
         order.setBasic(800.00);
-        order.setDiscount(0.10);
 
         Double result = assertDoesNotThrow(() -> shippingServiceImpl.shipment(order));
         assertNotNull(result);
@@ -63,10 +62,7 @@ class ShippingServiceImplTest {
 
     @Test
     void testShipmentBasicZero() {
-        Order order = new Order();
-        order.setCode(2282);
         order.setBasic(0.00);
-        order.setDiscount(0.0);
 
         Double result = assertDoesNotThrow(() -> shippingServiceImpl.shipment(order));
         assertNotNull(result);
